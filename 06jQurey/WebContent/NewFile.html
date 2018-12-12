@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-1.8.3.js" ></script>
+		<style type="text/css">
+			.ss_container{
+				width: 200px;
+			}
+			.col{
+				float: left;
+				width: 50%;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div class="ss_container">
+			<div class="row">
+				<div class="col">
+					出发地
+				</div>
+				<div class="col">
+					<input type="" name="" id="startStation" value="" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					目的地
+				</div>
+				<div class="col">
+					<input type="" name="" id="toStation" value="" />
+				</div>
+			</div>
+				<div class="row">
+				<div class="col" id="">
+					<button onclick="changeCity()">交换</button>
+					<button type="submit">查询</button>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function changeCity(){
+				var temp=$("#startStation").val();
+				$("#startStation").val($("#toStation").val());
+				$("#toStation").val(temp);
+				//不指定存多久，就是会话周期（浏览器关闭时候删除m，再打开就没有了），
+				//调用一次记录一次
+				//交换时间要修改cookie中记录的值
+				//document.cookie="ss="+$("#startStation").val()+";max-age="+(7*0*60);
+				//document.cookie="ts="+$("#toStation").val()+";max-age="+(7*24*60*60);
+				
+			}
+			
+			//页面加载时。要读取cookie中的值填写进去
+			$("#startStation").val(readCookie("ss"));
+			$("#toStation").val(readCookie("ts"));
+			//记录
+			$("#startStation").blur(function(){
+				document.cookie="ss="+$(this).val()+";max-age="+(7*24*60*60);
+			});
+			$("#toStation").blur(function(){
+				document.cookie="ts="+$(this).val()+";max-age="+(7*24*60*60);
+			});
+		</script>
+	</body>
+</html>
